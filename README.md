@@ -1,44 +1,28 @@
-# Decoding the Rhythms of Emotion: Lyrics Classification & Sentiment Analysis
+# Decoding the Rhythms of Emotion
 
-A Text Mining project focused on predicting musical genres from song lyrics and analyzing emotional undertones across musical genres.
+Text mining project on genre classification from song lyrics and sentiment analysis across genres.
 
----
+## Project files
 
-## Project Overview
+- `dataset/`: training data, unlabeled test data, and the sample submission template.
+- `notebooks/EDA.ipynb`: data quality, class balance, lyric structure, and descriptive exploration.
+- `notebooks/Preprocessing.ipynb`: cleaning choices and preprocessing comparisons; writes the intermediate pickle used below.
+- `notebooks/Genre_Classification.ipynb`: model selection, assessment, error analysis, and test predictions.
+- `notebooks/Sentiment_Analysis.ipynb`: sentiment scoring and comparisons by genre, time, and popularity.
+- `utils/`: shared cleaning and sentiment functions.
+- `submissions/submission.csv`: generated genre predictions aligned to the sample submission IDs.
 
-1. **Genre Identification:** Predicting one of six musical genres (`pop`, `rap`, `rock`, `rb`, `misc`, `country`) using NLP and text classification techniques on song lyrics.
-2. **Sentiment Analysis:** Exploring emotional patterns, lexical polarity, and sentiment variations across genres, release eras, and popularity levels.
+## Run order
 
----
+Run notebooks from the `notebooks/` directory in this order:
 
-## Project Structure
+1. `EDA.ipynb`
+2. `Preprocessing.ipynb` (creates `../tmp/preprocessed_data.pickle`)
+3. `Genre_Classification.ipynb`
+4. `Sentiment_Analysis.ipynb`
 
-```text
-├── dataset/
-│   ├── train.csv              
-│   ├── test.csv               
-│   └── sample_submission.csv 
-├── notebooks/
-│   ├── EDA.ipynb              
-│   └── Preprocessing.ipynb   
-├── utils/
-│   ├── __init__.py
-│   └── pipeline.py             
-└── README.md
-```
+The intermediate `tmp/` folder is ignored by Git; regenerate it by running preprocessing before classification. The notebooks use pandas, NumPy, scikit-learn, NLTK, Matplotlib, and Seaborn.
 
----
+## Modeling notes
 
-## Workflow
-
-1. **Exploratory Data Analysis (`notebooks/EDA.ipynb`)**
-   - Audits missing values, duplicates, and release year anomalies.
-   - Evaluates genre imbalance (~70% Pop and Rap combined).
-   - Examines lyric lengths, structural markers (`[Chorus]`, `[Verse]`), and term frequencies per genre.
-
-2. **Preprocessing & Feature Engineering (`notebooks/Preprocessing.ipynb`)**
-   - Applies dual cleaning strategies:
-     - **Classification:** Stopwords and punctuation removed, verbs lemmatized, diacritics normalized.
-     - **Sentiment Analysis:** Punctuation, capitalization, and stopwords preserved to maintain emotional valence and negation.
-   - Compares Bag-of-Words, TF-IDF (unigrams + bigrams with sublinear scaling), and LSA dimensionality reduction.
-   - Saves cleaned text and fitted vectorizers to `tmp/preprocessed_data.pickle` for modeling.
+Genre classification uses only lyrics in its final model. The assessment fold is reserved from feature and parameter selection; Macro-F1 is the primary metric because genre counts are imbalanced. The final classifier uses scikit-learn TF-IDF and LinearSVC.
