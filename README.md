@@ -25,4 +25,4 @@ The intermediate `tmp/` folder is ignored by Git; regenerate it by running prepr
 
 ## Modeling notes
 
-Genre classification uses only lyrics in its final model. The assessment fold is reserved from feature and parameter selection; Macro-F1 is the primary metric because genre counts are imbalanced. The final classifier uses scikit-learn TF-IDF and LinearSVC.
+Genre classification uses only lyrics in its final model. The assessment fold is reserved from feature and parameter selection; Macro-F1 is the primary metric because genre counts are imbalanced. The final classifier uses scikit-learn TF-IDF and LinearSVC. The modeling notebook compares word-only features with a word-plus-character TF-IDF branch using development-fold cross-validation; it selects the character branch only when that inner Macro-F1 is higher.
