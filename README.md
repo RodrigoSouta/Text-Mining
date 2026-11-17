@@ -27,4 +27,4 @@ The intermediate `tmp/` folder is ignored by Git; regenerate it by running prepr
 
 ## Modeling notes
 
-The classifier keeps a lyrics-only baseline and compares raw character, artist, release-year/collaboration, section, and lyric-structure features on an inner validation split. The outer holdout is reserved for assessment. Macro-F1 is the primary metric because the genres are imbalanced.
+The classifier combines lyrics with artist, featured-artist, section, lyric-structure, release-year, and views features. Settings were selected on an inner validation split. A three-fold logistic stack scored lower and was removed from the final run; the outer holdout remains reserved for assessment.
