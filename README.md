@@ -27,4 +27,4 @@ The intermediate `tmp/` folder is ignored by Git; regenerate it by running prepr
 
 ## Modeling notes
 
-The classifier combines lyrics with artist, featured-artist, section, lyric-structure, release-year, and views features. Settings were selected on an inner validation split. A three-fold logistic stack scored lower and was removed from the final run; the outer holdout remains reserved for assessment.
+The classifier combines TF-IDF with artist, featured-artist, section, lyric-structure, release-year, and views features. Artist-prior and same-artist score adjustments are selected on an inner split; the outer holdout is used for assessment. Sentence embeddings are optional and off by default.
